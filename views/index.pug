@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Skribul
+    link(rel="stylesheet", href="styles/skribul.css")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+  body
+    canvas(id="canvas")
+
+    .colors
+      each color in ['white', 'black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
+        button(type="button", class="color shadow", onclick="setStyle('" + color + "')", style="background: " + color + ";")
+
+    .menu
+      button(type="button", class="save shadow", onclick="save()")
+        i.material-icons save
+      button(type="button", class="clear shadow", onclick="clearCanvas()")
+        i.material-icons refresh
+    block scripts
+      script(src="scripts/skribul.js")

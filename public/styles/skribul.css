@@ -1,0 +1,114 @@
+:root {
+  font-family: "Open Sans";
+}
+
+html,
+body {
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.shadow {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07), 0 4px 8px rgba(0, 0, 0, 0.07),
+    0 8px 16px rgba(0, 0, 0, 0.07), 0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+}
+
+.colors {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.colors button {
+  margin: 0 0.25rem;
+  height: 2rem;
+  width: 2rem;
+  transition: all 0.3s;
+}
+
+.colors button:hover {
+  height: 3rem;
+  width: 3rem;
+}
+
+button {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:active,
+button:focus {
+  outline: 0;
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+}
+
+.menu button {
+  margin: 1rem;
+}
+
+button.clear,
+button.save {
+  transition: transform 0.2s;
+  padding: 0.25rem 1.25rem;
+  background: #ededed;
+}
+
+button.clear:hover,
+button.save:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+.black {
+  background: black;
+}
+
+.red {
+  background: red;
+}
+
+.orange {
+  background: orange;
+}
+
+.yellow {
+  background: yellow;
+}
+
+.green {
+  background: green;
+}
+
+.blue {
+  background: blue;
+}
+
+.indigo {
+  background: indigo;
+}
+
+.violet {
+  background: violet;
+}

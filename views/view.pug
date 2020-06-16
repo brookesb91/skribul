@@ -1,0 +1,9 @@
+extends index.pug
+
+block append scripts
+  script(type="text/javascript").
+
+    window.addEventListener('load', function(){
+      console.log('rendering');
+      render('#{image}');
+    });
