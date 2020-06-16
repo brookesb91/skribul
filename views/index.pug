@@ -3,6 +3,7 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="theme-color", content="#ffffff")
     title Skribul
     link(rel="stylesheet", href="styles/skribul.css")
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
@@ -10,13 +11,13 @@ html(lang="en")
     canvas(id="canvas")
 
     .colors
-      each color in ['white', 'black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
-        button(type="button", class="color shadow", onclick="setStyle('" + color + "')", style="background: " + color + ";")
+      each color in ['black', 'white', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
+        button(type="button", class="color shadow", onclick="setStyle('" + color + "')", style="background: " + color + ";", title=color)
 
     .menu
-      button(type="button", class="save shadow", onclick="save()")
+      button(type="button", class="save shadow", onclick="save()", title="Save")
         i.material-icons save
-      button(type="button", class="clear shadow", onclick="clearCanvas()")
+      button(type="button", class="clear shadow", onclick="clearCanvas()", title="Clear")
         i.material-icons refresh
     block scripts
       script(src="scripts/skribul.js")

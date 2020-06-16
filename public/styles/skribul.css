@@ -33,20 +33,26 @@ canvas {
   margin: 1rem;
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
   justify-content: center;
 }
 
 .colors button {
+  border: 2px transparent;
   margin: 0 0.25rem;
-  height: 2rem;
-  width: 2rem;
+  height: 3rem;
+  width: 3rem;
   transition: all 0.3s;
 }
 
 .colors button:hover {
-  height: 3rem;
-  width: 3rem;
+  /* height: 3rem;
+  width: 6rem; */
+  transform: scale(1.5);
+}
+
+.colors button.active {
+  border-color: violet;
 }
 
 button {
@@ -63,24 +69,20 @@ button:focus {
 
 .menu {
   position: fixed;
+  padding: 1rem;
   top: 0;
   right: 0;
   display: flex;
 }
 
 .menu button {
-  margin: 1rem;
-}
-
-button.clear,
-button.save {
+  margin: 0rem 0.5rem;
   transition: transform 0.2s;
   padding: 0.25rem 1.25rem;
   background: #ededed;
 }
 
-button.clear:hover,
-button.save:hover {
+.menu button:hover {
   background: white;
   transform: scale(1.1);
 }
