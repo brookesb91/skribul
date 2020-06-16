@@ -33,12 +33,10 @@ const Save = mongoose.model('Save', saveSchema);
 
 app.set('view engine', 'pug');
 
-app.use(express.json({
-  limit: '50mb',
-  parameterLimit: 50000
-}));
-app.use(express.urlencoded({
-  limit: '50mb'
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({
+  extended: true
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -53,8 +51,7 @@ app.get('/:slug', async (req, res) => {
   });
 
   if (!save) {
-    // throw
-    console.log('Not Found');
+    return res.redirect('/');
   }
 
   return res.render('view', save.toJSON());
@@ -66,24 +63,10 @@ app.put('/api/saves', async (req, res) => {
   } = req.body;
 
   const item = await Save.create({
-    image: new Buffer(new Buffer(image, 'binary').toString('base64'), 'base64')
+    image: Buffer.from(Buffer.from(image, 'binary').toString('base64'), 'base64')
   });
 
   return res.json(item.toJSON());
-});
-
-app.get('/api/saves/:slug', async (req, res) => {
-  const slug = req.params['slug'];
-
-  const save = await Save.findOne({
-    slug
-  });
-
-  if (!save) {
-    // throw
-  }
-
-  return res.json(save.toJSON());
 });
 
 const server = new http.Server(app);

@@ -90,13 +90,13 @@ const save = async () => {
   });
 
   const data = await res.json();
-  window.location.href = `/${data.slug}`;
-
-  const link = window.location;
+  const link = new URL(data.slug, window.location);
 
   await navigator.clipboard.writeText(link);
 
   alert(`Copied to clipboard`);
+
+  window.location.href = `/${data.slug}`;
 }
 
 getCanvas().addEventListener(INPUT_START, drawStart);
