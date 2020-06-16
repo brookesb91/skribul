@@ -9,7 +9,7 @@ const app = express();
 const protocol = process.env.PROTOCOL || 'http';
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || '0.0.0.0';
-const dbUri = process.env.MONGDB_URI || 'mongodb://localhost/skribul';
+const dbUri = process.env.MONGODB_URI || 'mongodb://localhost/skribul';
 
 
 const saveSchema = new mongoose.Schema({
