@@ -52,16 +52,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => res.render('index'));
 
-// app.get('/browse', (req, res) => {
-//   const items = await Save.find().sort({
-//     expiresAt: -1
-//   }).skip(0).limit(12);
-
-//   return res.render('browse', {
-//     items: items.map(i => i.toJSON())
-//   });
-// });
-
 app.get('/:slug', async (req, res) => {
   const slug = req.params['slug'];
 
@@ -135,4 +125,21 @@ server.listen(port, host, () => {
       }
     });
   })
+
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM signal received.');
+    console.log('Closing http server...');
+
+    server.close(() => {
+      console.log('Http server closed.');
+      console.log('Stopping running jobs...');
+      job.stop();
+      console.log('Stopped running jobs.');
+      console.log('Closing MongoDB connection...');
+      mongoose.connection.close(false, () => {
+        console.log('MongoDB connection closed.');
+        process.exit(0);
+      })
+    })
+  });
 });
