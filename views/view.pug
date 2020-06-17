@@ -11,6 +11,4 @@ block append menu
 block append scripts
   script(type="text/javascript").
 
-    window.addEventListener('load', function(){
-      render('#{image}');
-    });
+    window.addEventListener('load', () => render('#{image}'));
