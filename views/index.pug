@@ -20,10 +20,12 @@ html(lang="en")
         button(type="button", class="color shadow", onclick="setStyle('" + color + "')", style="background: " + color + ";", title=color)
 
     .menu
-      button(type="button", class="save shadow", onclick="save()", title="Save")
-        i.material-icons save
-      button(type="button", class="clear shadow", onclick="clearCanvas()", title="Clear")
-        i.material-icons refresh
+      block menu
+        button(type="button", class="menu-item save shadow", onclick="save()", title="Save")
+          i.material-icons save
+        button(type="button", class="menu-item clear shadow", onclick="clearCanvas()", title="Clear")
+          i.material-icons refresh
+
 
     #overlay.overlay
       h4 Saving...
