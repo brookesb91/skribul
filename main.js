@@ -11,6 +11,7 @@ const protocol = process.env.PROTOCOL || 'http';
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || '0.0.0.0';
 const dbUri = process.env.MONGODB_URI || 'mongodb://localhost/skribul';
+const baseURL = process.env.BASE_URL || 'http://localhost:3000';
 
 const saveSchema = new mongoose.Schema({
   image: Buffer,
@@ -72,7 +73,10 @@ app.get('/:slug', async (req, res) => {
     return res.redirect('/');
   }
 
-  return res.render('view', save.toJSON());
+  return res.render('view', {
+    ...save.toJSON(),
+    base: baseURL
+  });
 });
 
 
