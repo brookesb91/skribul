@@ -1,12 +1,12 @@
 extends index.pug
 
 block append head
-  meta(property="og:image:secure" content=base + '/preview/' + slug)
+  meta(property="og:image:url" content=base + '/preview/' + slug)
+  meta(property="og:url" content=base)
 
 block append scripts
   script(type="text/javascript").
 
     window.addEventListener('load', function(){
-      console.log('rendering');
       render('#{image}');
     });
