@@ -75,6 +75,27 @@ app.get('/:slug', async (req, res) => {
   return res.render('view', save.toJSON());
 });
 
+
+app.get('/preview/:slug', async (req, res) => {
+  const slug = req.params['slug'];
+  const save = await Save.findOne({
+    slug
+  });
+
+  if (!save) {
+    return res.status(404);
+  }
+
+  const img = Buffer.from(save.image.toString().replace(/^data:image\/png;base64,/, ''), 'base64');
+
+  res.writeHead(200, {
+    'Content-Type': 'image/png',
+    'Content-Length': img.length
+  });
+
+  res.end(img);
+})
+
 app.put('/api/saves', async (req, res) => {
   const {
     image
@@ -104,7 +125,7 @@ server.listen(port, host, () => {
   console.log(`Server running on ${protocol}://${host}:${port}`);
 
   cron.schedule('* * * * *', async () => {
-    const result = await Save.deleteMany({
+    await Save.deleteMany({
       expiresAt: {
         $lt: new Date()
       }
