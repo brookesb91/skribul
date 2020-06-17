@@ -51,6 +51,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => res.render('index'));
 
+// app.get('/browse', (req, res) => {
+//   const items = await Save.find().sort({
+//     expiresAt: -1
+//   }).skip(0).limit(12);
+
+//   return res.render('browse', {
+//     items: items.map(i => i.toJSON())
+//   });
+// });
+
 app.get('/:slug', async (req, res) => {
   const slug = req.params['slug'];
 
