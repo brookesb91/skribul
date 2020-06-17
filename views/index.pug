@@ -7,6 +7,7 @@ html(lang="en")
     title Skribul
     link(rel="stylesheet", href="styles/skribul.css")
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+    link(href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet")
   body
     canvas(id="canvas")
 
@@ -19,5 +20,9 @@ html(lang="en")
         i.material-icons save
       button(type="button", class="clear shadow", onclick="clearCanvas()", title="Clear")
         i.material-icons refresh
+
+    #overlay.overlay
+      h4 Saving...
+
     block scripts
       script(src="scripts/skribul.js")

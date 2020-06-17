@@ -2,6 +2,16 @@ const getCanvas = () => document.getElementById('canvas');
 const getContext = () => getCanvas().getContext('2d');
 const getRect = () => getCanvas().getBoundingClientRect();
 
+const getOverlay = () => document.getElementById('overlay');
+
+const toggleOverlay = (toggle) => {
+  if (toggle) {
+    getOverlay().classList.add('visible');
+  } else {
+    getOverlay().classList.remove('visible');
+  }
+}
+
 const isTouch = () => 'ontouchstart' in window;
 
 getCanvas().width = document.body.clientWidth;
@@ -75,6 +85,8 @@ const render = (dataURI) => {
 }
 
 const save = async () => {
+  toggleOverlay(true);
+
   const image = getCanvas().toDataURL('image/png');
   const payload = {
     image
@@ -92,9 +104,11 @@ const save = async () => {
   const data = await res.json();
   const link = new URL(data.slug, window.location);
 
+  toggleOverlay(false);
+
   await navigator.clipboard.writeText(link);
 
-  alert(`Copied to clipboard`);
+  alert(`Link copied to clipboard`);
 
   window.location.href = `/${data.slug}`;
 }
