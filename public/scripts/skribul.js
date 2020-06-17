@@ -98,7 +98,7 @@ const save = async () => {
   };
 
   const res = await fetch('api/saves', {
-    method: 'PUT',
+    method: 'POST',
     cache: 'no-cache',
     headers: {
       'Content-Type': 'application/json'
