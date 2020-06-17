@@ -55,6 +55,10 @@ canvas {
   border-color: violet;
 }
 
+canvas {
+  touch-action: none;
+}
+
 button {
   appearance: none;
   border: 0;
