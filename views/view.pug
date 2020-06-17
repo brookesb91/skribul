@@ -1,5 +1,8 @@
 extends index.pug
 
+block append head
+  meta(property="og:image" content=image)
+
 block append scripts
   script(type="text/javascript").
 
