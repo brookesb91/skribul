@@ -4,9 +4,11 @@ block append head
   meta(property="og:image:url" content=base + '/preview/' + slug)
   meta(property="og:url" content=base + '/preview/' + slug)
 
+block append menu
+  a(href="/preview/" + slug download=slug + ".png" title="Download" class="menu-item download shadow")
+    i.material-icons save_alt
+
 block append scripts
   script(type="text/javascript").
 
-    window.addEventListener('load', function(){
-      render('#{image}');
-    });
+    window.addEventListener('load', () => render('#{image}'));

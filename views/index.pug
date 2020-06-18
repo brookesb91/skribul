@@ -10,6 +10,13 @@ html(lang="en")
 
       meta(property="og:title" content="Skribul")
 
+      link(rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png")
+      link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
+      link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
+      link(rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#ffffff")
+      link(rel="msapplication-TileColor" content="#ffffff")
+      link(rel="manifest" href="/manifest.webmanifest")
+
       link(rel="stylesheet", href="styles/skribul.css")
       link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
       link(href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet")
@@ -21,13 +28,16 @@ html(lang="en")
         button(type="button", class="color shadow", onclick="setStyle('" + color + "')", style="background: " + color + ";", title=color)
 
     .menu
-      button(type="button", class="save shadow", onclick="save()", title="Save")
-        i.material-icons save
-      button(type="button", class="clear shadow", onclick="clearCanvas()", title="Clear")
-        i.material-icons refresh
+      block menu
+        button(type="button", class="menu-item save shadow", onclick="save()", title="Save")
+          i.material-icons save
+        a(href="/", class="menu-item clear shadow", title="New")
+          i.material-icons refresh
+
 
     #overlay.overlay
       h4 Saving...
 
     block scripts
       script(src="scripts/skribul.js")
+      script(src="sw-register.js")
