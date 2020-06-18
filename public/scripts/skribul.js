@@ -125,6 +125,29 @@ const save = async () => {
   window.location.href = `/${data.slug}`;
 };
 
-getCanvas().addEventListener(getInputEventNames().start, drawStart);
+const colors = document.querySelectorAll('.color[data-color]');
 
+/**
+ *
+ * @param {String} selector Query Selector
+ * @param {NodeListOf<Element>} elements Elements to query
+ * @returns {NodeListOf<Element>}
+ */
+const querySelectorFrom = (selector, elements) => {
+  return [].filter.call(elements, element => element.matches(selector));
+}
+
+colors.forEach(el => {
+  const color = el.getAttribute('data-color');
+  el.addEventListener('click', () => {
+    const active = querySelectorFrom('.active', colors)[0];
+    !!active && active.classList.remove('active');
+    el.classList.add('active');
+    setStyle(color);
+  });
+});
+
+colors[0].click();
+
+getCanvas().addEventListener(getInputEventNames().start, drawStart);
 getCanvas().addEventListener(getInputEventNames().end, drawEnd);

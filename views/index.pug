@@ -9,6 +9,7 @@ html(lang="en")
       meta(name="description", content="Share your doodles")
 
       meta(property="og:title" content="Skribul")
+      meta(property="og:description" content="Share your doodles")
 
       link(rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png")
       link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
@@ -26,7 +27,7 @@ html(lang="en")
 
     .colors
       each color in ['black', 'white', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
-        button(type="button", class="color shadow", onclick="setStyle('" + color + "')", style="background: " + color + ";", title=color)
+        button(type="button", data-color=color class="color shadow", style="background: " + color + ";", title=color)
 
     .menu
       block menu
