@@ -57,7 +57,7 @@ server.listen(port, host, () => {
   const job = cron.schedule('* * * * *', async () => {
     await models.Save.deleteMany({
       expiresAt: {
-        $lt: new Date()
+        $lte: new Date()
       }
     });
   })

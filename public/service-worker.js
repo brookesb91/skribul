@@ -6,7 +6,7 @@ const HTML_ASSETS = ['/', '/offline'];
 
 const JS_ASSETS = ['/scripts/skribul.js'];
 
-const CSS_ASSETS = ['/styles/skribul.css'];
+const CSS_ASSETS = ['/styles/skribul.css', '/styles/skribul-editor.css', '/styles/skribul-browse.css'];
 
 const IMAGE_ASSETS = [];
 
@@ -14,16 +14,16 @@ function onInstall(event) {
   log('Installing');
   event.waitUntil(
     caches
-      .open(CACHE_NAME)
-      .then((cache) =>
-        cache.addAll([
-          ...HTML_ASSETS,
-          ...JS_ASSETS,
-          ...CSS_ASSETS,
-          ...IMAGE_ASSETS,
-        ])
-      )
-      .then(() => log('Install complete'))
+    .open(CACHE_NAME)
+    .then((cache) =>
+      cache.addAll([
+        ...HTML_ASSETS,
+        ...JS_ASSETS,
+        ...CSS_ASSETS,
+        ...IMAGE_ASSETS,
+      ])
+    )
+    .then(() => log('Install complete'))
   );
 }
 
@@ -34,8 +34,8 @@ function onActivate(event) {
     .then((cacheNames) =>
       Promise.all(
         cacheNames
-          .filter((name) => name.indexOf(CACHE_NAME) !== 0)
-          .map((name) => caches.delete(name))
+        .filter((name) => name.indexOf(CACHE_NAME) !== 0)
+        .map((name) => caches.delete(name))
       )
     );
 }
@@ -56,7 +56,9 @@ function onFetch(event) {
 
   function handleNetworkResponse(response) {
     const clone = response.clone();
-    caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+    if (/^https?:$/i.test(new URL(event.request.url).protocol)) {
+      caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+    }
     return response;
   }
 }
