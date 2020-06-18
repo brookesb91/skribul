@@ -23,8 +23,6 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use(express.static(path.join(__dirname, 'public')));
-
 const forceSsl = function (req, res, next) {
   if (req.headers['x-forwarded-proto'] !== 'https') {
     return res.redirect(['https://', req.get('Host'), req.url].join(''));
@@ -32,11 +30,12 @@ const forceSsl = function (req, res, next) {
   return next();
 };
 
-app.configure(function () {
-  if (env === 'production') {
-    app.use(forceSsl);
-  }
-});
+if (env === 'production') {
+  app.use(forceSsl);
+}
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.get('/', controllers.index);
 app.get('/:slug', controllers.view);
