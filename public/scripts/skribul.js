@@ -41,20 +41,19 @@ const MOUSE_EVENTS = {
 
 const getInputEventNames = () => (isTouch() ? TOUCH_EVENTS : MOUSE_EVENTS);
 
-const INPUT_MOVE = getInputEventNames().move;
-const INPUT_START = getInputEventNames().start;
-const INPUT_END = getInputEventNames().end;
-
 const setStyle = (color) => (getContext().fillStyle = color);
 
 const clearCanvas = () => {
-  const { width, height } = getCanvas();
+  const {
+    width,
+    height
+  } = getCanvas();
   getContext().clearRect(0, 0, width, height);
 };
 
-const drawStart = (e) => getCanvas().addEventListener(INPUT_MOVE, startPath);
+const drawStart = (e) => getCanvas().addEventListener(getInputEventNames().move, startPath);
 
-const drawEnd = (e) => getCanvas().removeEventListener(INPUT_MOVE, startPath);
+const drawEnd = (e) => getCanvas().removeEventListener(getInputEventNames().move, startPath);
 
 const startPath = (e) => {
   const pos = getInputPos(e);
@@ -64,7 +63,10 @@ const startPath = (e) => {
 const getInputPos = (e) => (isTouch() ? getTouchPos(e) : getMousePos(e));
 
 const getTouchPos = (e) => {
-  const { left, top } = getRect();
+  const {
+    left,
+    top
+  } = getRect();
   return {
     x: e.touches[0].clientX - left,
     y: e.touches[0].clientY - top,
@@ -72,7 +74,10 @@ const getTouchPos = (e) => {
 };
 
 const getMousePos = (e) => {
-  const { left, top } = getRect();
+  const {
+    left,
+    top
+  } = getRect();
   return {
     x: e.clientX - left,
     y: e.clientY - top,
@@ -108,7 +113,10 @@ const save = async () => {
   toggleOverlay(false);
 
   if ('share' in navigator) {
-    await navigator.share({ title: 'Skribul', url: link });
+    await navigator.share({
+      title: 'Skribul',
+      url: link
+    });
   } else {
     await navigator.clipboard.writeText(link);
     alert(`Link copied to clipboard`);
@@ -117,6 +125,6 @@ const save = async () => {
   window.location.href = `/${data.slug}`;
 };
 
-getCanvas().addEventListener(INPUT_START, drawStart);
+getCanvas().addEventListener(getInputEventNames().start, drawStart);
 
-getCanvas().addEventListener(INPUT_END, drawEnd);
+getCanvas().addEventListener(getInputEventNames().end, drawEnd);
