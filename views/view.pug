@@ -3,6 +3,8 @@ extends index.pug
 block append head
   meta(property="og:image:url" content=base + '/preview/' + slug)
   meta(property="og:url" content=base + '/preview/' + slug)
+  meta(property="twitter:image" content=base + '/preview/' + slug)
+  meta(property="twitter:card" content=base + '/preview/' + slug)
 
 block append menu
   a(href="/preview/" + slug download=slug + ".png" title="Download" class="menu-item download shadow")

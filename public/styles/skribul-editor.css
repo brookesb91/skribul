@@ -17,11 +17,12 @@ canvas {
 }
 
 .colors {
+  max-width: 200px;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  margin: 1rem;
+  margin: 1rem auto;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -36,15 +37,23 @@ canvas {
   transition: all 0.2s;
 }
 
-.colors .color:not(.active) {
-  border: 2px transparent;
+@media (min-width: 600px) {
+  .colors {
+    max-width: unset;
+  }
+
+  .colors .color {
+    height: 3rem;
+    width: 3rem;
+  }
 }
 
 .colors .color:hover {
-  /* height: 3rem;
-  width: 6rem; */
-  margin: 0.25rem 0.5rem;
-  transform: scale(1.5);
+  filter: brightness(90%);
+}
+
+.colors .color:not(.active) {
+  border: 2px transparent;
 }
 
 .colors .color.active {

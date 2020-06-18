@@ -110,20 +110,23 @@ const save = async () => {
   const data = await res.json();
   const link = new URL(data.slug, window.location);
 
+  share(link);
   toggleOverlay(false);
 
+  window.location.href = `/${data.slug}`;
+};
+
+const share = async (link) => {
   if ('share' in navigator) {
     await navigator.share({
       title: 'Skribul',
       url: link
     });
-  } else {
+  } else if ('clipboard' in navigator) {
     await navigator.clipboard.writeText(link);
     alert(`Link copied to clipboard`);
   }
-
-  window.location.href = `/${data.slug}`;
-};
+}
 
 const colors = document.querySelectorAll('.color[data-color]');
 
