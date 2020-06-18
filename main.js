@@ -9,6 +9,7 @@ const app = express();
 const models = require('./src/models');
 const controllers = require('./src/controllers');
 
+const env = process.env.NODE_ENV || 'development';
 const protocol = process.env.PROTOCOL || 'http';
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || '0.0.0.0';
@@ -23,6 +24,19 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+const forceSsl = function (req, res, next) {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect(['https://', req.get('Host'), req.url].join(''));
+  }
+  return next();
+};
+
+app.configure(function () {
+  if (env === 'production') {
+    app.use(forceSsl);
+  }
+});
 
 app.get('/', controllers.index);
 app.get('/:slug', controllers.view);
