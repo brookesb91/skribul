@@ -1,0 +1,26 @@
+extends _layout
+
+block append styles
+  link(rel="stylesheet", href="styles/skribul-editor.css")
+
+block append body
+
+  canvas(id="canvas")
+
+  .colors
+    each color in ['black', 'white', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
+      button(type="button", data-color=color class="color shadow", style="background: " + color + ";", title=color)
+
+  .menu
+    block menu
+      button(type="button", class="menu-item save shadow", onclick="save()", title="Save")
+        i.material-icons save
+      a(href="/", class="menu-item clear shadow", title="New")
+        i.material-icons refresh
+
+
+  #overlay.overlay
+    h4 Saving...
+
+block append scripts
+  script(src="scripts/skribul.js")

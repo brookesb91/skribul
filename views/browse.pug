@@ -1,7 +1,10 @@
-<!DOCTYPE html>
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Skribul || Browse
-  body
+extends _layout
+
+block append styles
+  link(rel="stylesheet", href="styles/skribul-browse.css")
+
+block append body
+  .items
+    each item in items
+      a.item.shadow(href=item.slug)
+        img.preview(src='/preview/' + item.slug)

@@ -38,8 +38,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.get('/', controllers.index);
+// app.get('/browse', controllers.browse);
 app.get('/:slug', controllers.view);
-app.get('/preview/:slug', controllers.preview)
+app.get('/preview/:slug', controllers.preview);
 app.post('/api/saves', controllers.save);
 
 const server = new http.Server(app);

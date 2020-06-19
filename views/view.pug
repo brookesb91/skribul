@@ -1,6 +1,6 @@
-extends index.pug
+extends editor
 
-block append head
+block append meta
   meta(property="og:image:url" content=base + '/preview/' + slug)
   meta(property="og:url" content=base + '/preview/' + slug)
   meta(property="twitter:image" content=base + '/preview/' + slug)
@@ -12,5 +12,4 @@ block append menu
 
 block append scripts
   script(type="text/javascript").
-
     window.addEventListener('load', () => render('#{image}'));
