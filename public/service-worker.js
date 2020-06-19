@@ -56,7 +56,7 @@ function onFetch(event) {
 
   function handleNetworkResponse(response) {
     const clone = response.clone();
-    if (/^https?:$/i.test(new URL(event.request.url).protocol)) {
+    if (isSecure(event.request.url)) {
       caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
     }
     return response;
@@ -66,6 +66,10 @@ function onFetch(event) {
 self.addEventListener('install', onInstall);
 self.addEventListener('activate', onActivate);
 self.addEventListener('fetch', onFetch);
+
+function isSecure(url) {
+  return /^https?:$/i.test(new URL(url).protocol);
+}
 
 function log(message) {
   console.log(`[service-worker] ${message}`);
