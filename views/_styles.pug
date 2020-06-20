@@ -1,4 +1,6 @@
 block styles
-  link(rel="stylesheet", href="styles/skribul.css")
-  link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap")
-  link(href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet")
+  link(rel="preload", href="styles/skribul.css" media="all" as="style")
+
+  link(rel="preconnect" href="https://fonts.gstatic.com/" crossorigin)
+  link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" crossorigin)
+  link(href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" crossorigin)

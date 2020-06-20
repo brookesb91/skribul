@@ -1,14 +1,32 @@
 /**
+ * Gets the canvas element.
  * @returns {HTMLCanvasElement}
  */
 const getCanvas = () => document.getElementById('canvas');
 
+/**
+ * Gets the current canvas rendering context.
+ * @returns {CanvasRenderingContext2D}
+ */
 const getContext = () => getCanvas().getContext('2d');
 
+/**
+ * Gets the current canvas DOMRect.
+ * @returns {DOMRect}
+ */
 const getRect = () => getCanvas().getBoundingClientRect();
 
+/**
+ * Get the loading overlay element.
+ * @returns {HTMLElement}
+ */
 const getOverlay = () => document.getElementById('overlay');
 
+/**
+ * Toggles the loading overlay visibility.
+ * @param {Boolean} toggle Show the overlay?
+ * @returns {void}
+ */
 const toggleOverlay = (toggle) => {
   if (toggle) {
     getOverlay().classList.add('visible');
@@ -17,6 +35,10 @@ const toggleOverlay = (toggle) => {
   }
 };
 
+/**
+ * Determines if touch is supported on the current platform.
+ * @returns {Boolean}
+ */
 const isTouch = () => 'ontouchstart' in window;
 
 getCanvas().width = document.body.clientWidth;
@@ -39,8 +61,16 @@ const MOUSE_EVENTS = {
   end: 'mouseup',
 };
 
+/**
+ * @returns {typeof TOUCH_EVENTS | typeof MOUSE_EVENTS}
+ */
 const getInputEventNames = () => (isTouch() ? TOUCH_EVENTS : MOUSE_EVENTS);
 
+/**
+ * 
+ * @param {String} color Color to set
+ * @returns {void}
+ */
 const setStyle = (color) => (getContext().fillStyle = color);
 
 const clearCanvas = () => {
@@ -130,26 +160,31 @@ const share = async (link) => {
     await navigator.clipboard.writeText(link);
     alert(`Link copied to clipboard`);
   }
-}
+};
 
 const colors = document.querySelectorAll('.color[data-color]');
 
 /**
- *
+ * Query a node list with a selector.
  * @param {String} selector Query Selector
  * @param {NodeListOf<Element>} elements Elements to query
- * @returns {NodeListOf<Element>}
+ * @returns {NodeListOf<Element>} Matched results
  */
 const querySelectorFrom = (selector, elements) => {
   return [].filter.call(elements, element => element.matches(selector));
-}
+};
 
 colors.forEach(el => {
   const color = el.getAttribute('data-color');
   el.addEventListener('click', () => {
     const active = querySelectorFrom('.active', colors)[0];
-    !!active && active.classList.remove('active');
+
+    if (active) {
+      active.classList.remove('active');
+    }
+
     el.classList.add('active');
+
     setStyle(color);
   });
 });
@@ -159,6 +194,7 @@ colors[0].click();
 getCanvas().addEventListener(getInputEventNames().start, drawStart, {
   passive: true
 });
+
 getCanvas().addEventListener(getInputEventNames().end, drawEnd, {
   passive: true
 });
