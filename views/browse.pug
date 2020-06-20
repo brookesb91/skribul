@@ -8,3 +8,7 @@ block append body
     each item in items
       a.item.shadow(href=item.slug)
         img.preview(src='/preview/' + item.slug)
+
+block append ribbons
+  a.ribbon.shadow(href="/", title="Editor")
+    i.material-icons edit

@@ -58,9 +58,8 @@ button,
 
 .menu {
   position: fixed;
-  padding: 1rem;
-  top: 0;
-  right: 0;
+  top: 12px;
+  right: 12px;
   display: flex;
 }
 
@@ -71,13 +70,9 @@ button,
   margin: 0rem 0.5rem;
   transition: transform 0.2s;
   padding: 0.25rem 1.25rem;
-  background: #ededed;
+  background: #ffffff;
 }
 
-.menu .menu-item:hover {
-  background: white;
-  transform: scale(1.1);
-}
 
 .overlay {
   z-index: 9999;

@@ -2,7 +2,7 @@
   "name": "Skribul",
   "short_name": "Skribul",
   "theme_color": "#ffffff",
-  "background_color": "#ededed",
+  "background_color": "#ffffff",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

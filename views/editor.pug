@@ -17,8 +17,8 @@ block append body
   canvas(id="canvas")
 
   .picker-container
-    input(type="color" class="shadow" name="color")#color-picker
-    label(for="color-picker" style="display: none;") Color
+    label(for="color-picker" style="position: absolute; bottom: -99999px") Color
+    input(type="color" class="shadow" name="color" id="color-picker")
 
   .menu
     block menu
@@ -30,6 +30,10 @@ block append body
 
   #overlay.overlay
     h4 Saving...
+
+block append ribbons
+  a.ribbon.shadow(href="/browse", title="Browse")
+    i.material-icons collections
 
 block append scripts
   script(src="scripts/skribul.js")

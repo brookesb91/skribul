@@ -9,6 +9,11 @@ body {
   margin: 0;
 }
 
+a[href] {
+  text-decoration: none;
+  color: inherit;
+}
+
 *:active,
 *:focus {
   outline: 0;
@@ -17,4 +22,18 @@ body {
 .shadow {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
     0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07);
+}
+
+.ribbons {
+  position: fixed;
+  top: 12px;
+  left: 0;
+}
+
+.ribbons .ribbon {
+  background-color: #ffffff;
+  display: block;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  padding: 0.25rem 1.25rem;
 }

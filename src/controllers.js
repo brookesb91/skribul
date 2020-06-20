@@ -58,41 +58,33 @@ const save = async (req, res) => {
   });
 };
 
-// /**
-//  *
-//  * @param {Express.Request} req The request
-//  * @param {Express.Response} res The response
-//  */
-// const browse = async (req, res) => {
-//   const {
-//     limit,
-//     offset
-//   } = getPaginationOptions();
+/**
+ *
+ * @param {Express.Request} req The request
+ * @param {Express.Response} res The response
+ */
+const browse = async (req, res) => {
+  const items = await models.Save
+    .find({})
+    .skip(0)
+    .limit(12);
 
-//   const items = await models.Save
-//     .find({})
-//     .skip(offset)
-//     .limit(limit);
+  return res.render('browse', {
+    items: items.map(i => i.toJSON())
+  });
+};
 
-//   const total = await models.Save.countDocuments({})
-
-//   return res.render('browse', {
-//     items: items.map(i => i.toJSON()),
-//     total
-//   });
-// };
-
-// const getPaginationOptions = () => {
-//   return {
-//     offset: 0,
-//     limit: 12
-//   };
-// };
+const getPaginationOptions = () => {
+  return {
+    offset: 0,
+    limit: 12
+  };
+};
 
 module.exports = {
   index,
   view,
   save,
   preview,
-  // browse
+  browse
 };
