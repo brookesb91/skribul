@@ -6,7 +6,7 @@ const index = async (req, res) => res.render('editor', {
 });
 
 const view = async (req, res) => {
-  const slug = req.params['slug'];
+  const slug = req.params.slug;
 
   const save = await models.Save.findOne({
     slug
@@ -58,36 +58,36 @@ const save = async (req, res) => {
   });
 };
 
-/**
- *
- * @param {Express.Request} req The request
- * @param {Express.Response} res The response
- */
-const browse = async (req, res) => {
-  const {
-    limit,
-    offset
-  } = getPaginationOptions();
+// /**
+//  *
+//  * @param {Express.Request} req The request
+//  * @param {Express.Response} res The response
+//  */
+// const browse = async (req, res) => {
+//   const {
+//     limit,
+//     offset
+//   } = getPaginationOptions();
 
-  const items = await models.Save
-    .find({})
-    .skip(offset)
-    .limit(limit);
+//   const items = await models.Save
+//     .find({})
+//     .skip(offset)
+//     .limit(limit);
 
-  const total = await models.Save.countDocuments({})
+//   const total = await models.Save.countDocuments({})
 
-  return res.render('browse', {
-    items: items.map(i => i.toJSON()),
-    total
-  });
-}
+//   return res.render('browse', {
+//     items: items.map(i => i.toJSON()),
+//     total
+//   });
+// };
 
-const getPaginationOptions = () => {
-  return {
-    offset: 0,
-    limit: 12
-  };
-};
+// const getPaginationOptions = () => {
+//   return {
+//     offset: 0,
+//     limit: 12
+//   };
+// };
 
 module.exports = {
   index,

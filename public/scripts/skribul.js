@@ -67,7 +67,7 @@ const MOUSE_EVENTS = {
 const getInputEventNames = () => (isTouch() ? TOUCH_EVENTS : MOUSE_EVENTS);
 
 /**
- * 
+ * Set the canvas context fill style.
  * @param {String} color Color to set
  * @returns {void}
  */
@@ -159,6 +159,11 @@ const share = async (link) => {
   } else if ('clipboard' in navigator) {
     await navigator.clipboard.writeText(link);
     alert(`Link copied to clipboard`);
+  } else {
+    alert(`
+      Automatic sharing is currently unavailable in your browser.
+      Either copy the URL directly or open this page in a different browser.
+    `);
   }
 };
 
@@ -174,8 +179,6 @@ picker.addEventListener('change', () => {
   passive: true
 });
 
-// const colors = document.querySelectorAll('.color[data-color]');
-
 /**
  * Query a node list with a selector.
  * @param {String} selector Query Selector
@@ -185,23 +188,6 @@ picker.addEventListener('change', () => {
 const querySelectorFrom = (selector, elements) => {
   return [].filter.call(elements, element => element.matches(selector));
 };
-
-// colors.forEach(el => {
-//   const color = el.getAttribute('data-color');
-//   el.addEventListener('click', () => {
-//     const active = querySelectorFrom('.active', colors)[0];
-
-//     if (active) {
-//       active.classList.remove('active');
-//     }
-
-//     el.classList.add('active');
-
-//     setStyle(color);
-//   });
-// });
-
-// colors[0].click();
 
 getCanvas().addEventListener(getInputEventNames().start, drawStart, {
   passive: true
