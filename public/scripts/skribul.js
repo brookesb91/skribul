@@ -51,9 +51,13 @@ const clearCanvas = () => {
   getContext().clearRect(0, 0, width, height);
 };
 
-const drawStart = (e) => getCanvas().addEventListener(getInputEventNames().move, startPath);
+const drawStart = (e) => getCanvas().addEventListener(getInputEventNames().move, startPath, {
+  passive: true
+});
 
-const drawEnd = (e) => getCanvas().removeEventListener(getInputEventNames().move, startPath);
+const drawEnd = (e) => getCanvas().removeEventListener(getInputEventNames().move, startPath, {
+  passive: true
+});
 
 const startPath = (e) => {
   const pos = getInputPos(e);
@@ -152,5 +156,9 @@ colors.forEach(el => {
 
 colors[0].click();
 
-getCanvas().addEventListener(getInputEventNames().start, drawStart);
-getCanvas().addEventListener(getInputEventNames().end, drawEnd);
+getCanvas().addEventListener(getInputEventNames().start, drawStart, {
+  passive: true
+});
+getCanvas().addEventListener(getInputEventNames().end, drawEnd, {
+  passive: true
+});
