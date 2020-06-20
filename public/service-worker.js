@@ -42,6 +42,11 @@ function onActivate(event) {
 
 function onFetch(event) {
   log('Fetching');
+
+  if (event.request.url.match('^.*(\/browse\/).*$')) {
+    return false;
+  }
+
   event.respondWith(
     caches.match(event.request).then((cached) => {
       if (cached) {
