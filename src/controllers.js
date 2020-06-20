@@ -94,5 +94,5 @@ module.exports = {
   view,
   save,
   preview,
-  browse
+  // browse
 };
