@@ -1,10 +1,12 @@
 extends editor
 
 block append meta
-  meta(property="og:image:url" content=base + '/preview/' + slug)
-  meta(property="og:url" content=base + '/preview/' + slug)
-  meta(property="twitter:image" content=base + '/preview/' + slug)
-  meta(property="twitter:card" content=base + '/preview/' + slug)
+  - var preview = BASE_URL + '/preview/' + slug;
+  - var url = BASE_URL + '/' + slug;
+  meta(property="og:image:url" content=preview)
+  meta(property="og:url" content=url)
+  meta(property="twitter:image" content=preview)
+  meta(property="twitter:card" content=preview)
 
 block append menu
   a(href="/preview/" + slug download=slug + ".png" title="Download" class="menu-item download shadow")

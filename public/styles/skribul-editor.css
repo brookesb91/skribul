@@ -8,55 +8,44 @@ body {
 canvas {
   user-select: none;
   cursor: crosshair;
-}
-
-.colors {
-  max-width: 200px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 1rem auto;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.colors .color {
-  margin: 0.25rem;
-  height: 2rem;
-  width: 2rem;
-  transition: all 0.2s;
-}
-
-@media (min-width: 600px) {
-  .colors {
-    max-width: unset;
-  }
-
-  .colors .color {
-    height: 3rem;
-    width: 3rem;
-  }
-}
-
-.colors .color:hover {
-  filter: brightness(90%);
-}
-
-.colors .color:not(.active) {
-  border: 2px transparent;
-}
-
-.colors .color.active {
-  border-color: #333;
-  border-radius: 50%;
-}
-
-canvas {
   touch-action: none;
+}
+
+.picker-container {
+  position: fixed;
+  bottom: 25px;
+}
+
+#color-picker {
+  border: 2px solid #ededed;
+}
+
+input {
+  appearance: none;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+}
+
+input[type="color"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  appearance: none;
+  border: 0;
+  padding: 0;
+  height: 50px;
+  border-radius: 50%;
+  width: 50px;
 }
 
 button,
@@ -65,13 +54,6 @@ button,
   border: 0;
   cursor: pointer;
   border-radius: 4px;
-}
-
-button:active,
-button:focus,
-.menu-item:active,
-.menu-item:focus {
-  outline: 0;
 }
 
 .menu {
@@ -95,38 +77,6 @@ button:focus,
 .menu .menu-item:hover {
   background: white;
   transform: scale(1.1);
-}
-
-.black {
-  background: black;
-}
-
-.red {
-  background: red;
-}
-
-.orange {
-  background: orange;
-}
-
-.yellow {
-  background: yellow;
-}
-
-.green {
-  background: green;
-}
-
-.blue {
-  background: blue;
-}
-
-.indigo {
-  background: indigo;
-}
-
-.violet {
-  background: violet;
 }
 
 .overlay {

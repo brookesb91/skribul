@@ -43,8 +43,6 @@ const server = new http.Server(app);
 
 server.listen(port, host, () => {
 
-  mongoose.set('debug', !isProduction);
-
   mongoose.connect(dbUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -76,7 +74,7 @@ server.listen(port, host, () => {
       mongoose.connection.close(false, () => {
         console.log('MongoDB connection closed.');
         process.exit(0);
-      })
-    })
+      });
+    });
   });
 });

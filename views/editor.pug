@@ -1,5 +1,14 @@
 extends _layout
 
+block append meta
+  link(rel="canonical" href=BASE_URL)
+
+  - var imageUrl = BASE_URL + '/icons/icon-512x512.png';
+  meta(property="og:image" content=imageUrl)
+  meta(property="og:url" content=BASE_URL)
+  meta(property="twitter:image" content=imageUrl)
+  meta(property="twitter:card" content=imageUrl)
+
 block append styles
   link(rel="stylesheet" href="styles/skribul-editor.css")
 
@@ -7,9 +16,12 @@ block append body
 
   canvas(id="canvas")
 
-  .colors
-    each color in ['black', 'white', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
-      button(type="button", data-color=color class="color shadow", style="background: " + color + ";", title=color)
+  .picker-container
+    input(type="color" class="shadow")#color-picker
+
+  //- .colors
+  //-   each color in ['black', 'white', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
+  //-     button(type="button", data-color=color class="color shadow", style="background: " + color + ";", title=color)
 
   .menu
     block menu

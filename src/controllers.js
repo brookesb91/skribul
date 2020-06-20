@@ -1,7 +1,9 @@
 const models = require('./models');
-const baseURL = process.env.BASE_URL || 'http://localhost:3000';
+const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 
-const index = async (req, res) => res.render('editor');
+const index = async (req, res) => res.render('editor', {
+  BASE_URL
+});
 
 const view = async (req, res) => {
   const slug = req.params['slug'];
@@ -16,7 +18,7 @@ const view = async (req, res) => {
 
   return res.render('view', {
     ...save.toJSON(),
-    base: baseURL
+    BASE_URL
   });
 };
 
@@ -84,8 +86,8 @@ const getPaginationOptions = () => {
   return {
     offset: 0,
     limit: 12
-  }
-}
+  };
+};
 
 module.exports = {
   index,

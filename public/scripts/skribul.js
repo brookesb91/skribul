@@ -162,7 +162,19 @@ const share = async (link) => {
   }
 };
 
-const colors = document.querySelectorAll('.color[data-color]');
+/**
+ * @type {HTMLInputElement}
+ */
+const picker = document.querySelector('#color-picker');
+
+picker.addEventListener('change', () => {
+  const color = picker.value;
+  setStyle(color);
+}, {
+  passive: true
+});
+
+// const colors = document.querySelectorAll('.color[data-color]');
 
 /**
  * Query a node list with a selector.
@@ -174,22 +186,22 @@ const querySelectorFrom = (selector, elements) => {
   return [].filter.call(elements, element => element.matches(selector));
 };
 
-colors.forEach(el => {
-  const color = el.getAttribute('data-color');
-  el.addEventListener('click', () => {
-    const active = querySelectorFrom('.active', colors)[0];
+// colors.forEach(el => {
+//   const color = el.getAttribute('data-color');
+//   el.addEventListener('click', () => {
+//     const active = querySelectorFrom('.active', colors)[0];
 
-    if (active) {
-      active.classList.remove('active');
-    }
+//     if (active) {
+//       active.classList.remove('active');
+//     }
 
-    el.classList.add('active');
+//     el.classList.add('active');
 
-    setStyle(color);
-  });
-});
+//     setStyle(color);
+//   });
+// });
 
-colors[0].click();
+// colors[0].click();
 
 getCanvas().addEventListener(getInputEventNames().start, drawStart, {
   passive: true
