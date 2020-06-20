@@ -17,11 +17,8 @@ block append body
   canvas(id="canvas")
 
   .picker-container
-    input(type="color" class="shadow")#color-picker
-
-  //- .colors
-  //-   each color in ['black', 'white', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
-  //-     button(type="button", data-color=color class="color shadow", style="background: " + color + ";", title=color)
+    input(type="color" class="shadow" name="color")#color-picker
+    label(for="color" style="display: none;") Color
 
   .menu
     block menu
