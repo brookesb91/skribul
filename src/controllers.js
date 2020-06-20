@@ -1,10 +1,21 @@
 const models = require('./models');
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 
+/**
+ * Render the editor view.
+ * @param {Express.Request} req The request.
+ * @param {Express.Response} res The response.
+ */
 const index = async (req, res) => res.render('editor', {
   BASE_URL
 });
 
+/**
+ * View an existing save that has a matching slug
+ * and render it in the editor.
+ * @param {Express.Request} req The request.
+ * @param {Express.Response} res The response.
+ */
 const view = async (req, res) => {
   const slug = req.params.slug;
 
@@ -22,8 +33,15 @@ const view = async (req, res) => {
   });
 };
 
+/**
+ * Return a raw image for an existing save
+ * with the given slug.
+ * @param {Express.Request} req The request.
+ * @param {Express.Response} res The response.
+ */
 const preview = async (req, res) => {
-  const slug = req.params['slug'];
+  const slug = req.params.slug;
+
   const save = await models.Save.findOne({
     slug
   });
@@ -42,6 +60,11 @@ const preview = async (req, res) => {
   res.end(img);
 };
 
+/**
+ * Save a new drawing and return its slug.
+ * @param {Express.Request} req The request.
+ * @param {Express.Response} res The response.
+ */
 const save = async (req, res) => {
   const {
     image
@@ -59,7 +82,7 @@ const save = async (req, res) => {
 };
 
 /**
- *
+ * View the last 12 saved items.
  * @param {Express.Request} req The request
  * @param {Express.Response} res The response
  */
@@ -72,13 +95,6 @@ const browse = async (req, res) => {
   return res.render('browse', {
     items: items.map(i => i.toJSON())
   });
-};
-
-const getPaginationOptions = () => {
-  return {
-    offset: 0,
-    limit: 12
-  };
 };
 
 module.exports = {

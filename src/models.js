@@ -24,7 +24,7 @@ saveSchema.methods.toJSON = function () {
     image: this.image.toString(),
     slug: this.slug
   };
-}
+};
 
 const Save = mongoose.model('Save', saveSchema);
 
