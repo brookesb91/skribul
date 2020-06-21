@@ -92,7 +92,8 @@ button,
   display: none;
 }
 
-.overlay h4 {
+.overlay span {
+  display: block;
   color: white;
   font-size: 2rem;
 }
