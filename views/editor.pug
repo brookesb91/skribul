@@ -23,9 +23,9 @@ block append body
   .menu
     block menu
       button(type="button", class="menu-item save shadow", onclick="save()", title="Save")
-        i.material-icons save
+        i(data-eva="share-outline")
       a(href="/", class="menu-item clear shadow", title="New")
-        i.material-icons refresh
+        i(data-eva="trash-outline")
 
 
   #overlay.overlay
@@ -33,7 +33,7 @@ block append body
 
 block append ribbons
   a.ribbon.shadow(href="/browse", title="Browse")
-    i.material-icons collections
+    i(data-eva="grid-outline")
 
 block append scripts
   script(src="scripts/skribul.js")

@@ -1,14 +1,21 @@
 const models = require('./models');
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
+const ENV = process.env.NODE_ENV;
+
+const render = (res, name, data = {}) => {
+  return res.render(name, {
+    ...data,
+    BASE_URL,
+    ENV
+  });
+};
 
 /**
  * Render the editor view.
  * @param {Express.Request} req The request.
  * @param {Express.Response} res The response.
  */
-const index = async (req, res) => res.render('editor', {
-  BASE_URL
-});
+const index = async (req, res) => render(res, 'editor');
 
 /**
  * View an existing save that has a matching slug
@@ -27,9 +34,8 @@ const view = async (req, res) => {
     return res.redirect('/');
   }
 
-  return res.render('view', {
-    ...save.toJSON(),
-    BASE_URL
+  return render(res, 'view', {
+    ...save.toJSON()
   });
 };
 
@@ -92,7 +98,7 @@ const browse = async (req, res) => {
     .skip(0)
     .limit(12);
 
-  return res.render('browse', {
+  return render(res, 'browse', {
     items: items.map(i => i.toJSON())
   });
 };

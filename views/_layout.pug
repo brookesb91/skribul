@@ -10,9 +10,14 @@ html(lang="en")
       link(rel="msapplication-TileColor" content="#ffffff")
       link(rel="manifest" href="/manifest.webmanifest")
       include _styles
+
+      script(src="https://unpkg.com/eva-icons" async onload="eva.replace()" crossorigin="anonymous")
   body
     block body
       .ribbons
         block ribbons
+          //- .ribbon.shadow
+          //-   i(data-eva="github")
     block scripts
-      script(src="sw-register.js")
+      if ENV === 'production'
+        script(src="sw-register.js")
