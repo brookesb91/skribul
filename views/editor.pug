@@ -23,7 +23,8 @@ block append body
 
 
   #overlay.overlay
-    span Saving...
+    span
+      include components/loader
 
 block append ribbons
   a.ribbon.shadow(href="/browse", title="Browse")
