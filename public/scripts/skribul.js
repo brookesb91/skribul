@@ -145,6 +145,16 @@ const save = async () => {
   window.location.href = `/${data.slug}`;
 };
 
+/**
+ * Attempt to open the share view.
+ *
+ * If share is not available, attempt to copy the
+ * link to the clipboard.
+ *
+ * If neither is available, alert the user.
+ *
+ * @param {URL | String} link Link to share
+ */
 const share = async (link) => {
   if ('share' in navigator) {
     await navigator.share({
@@ -173,16 +183,6 @@ picker.addEventListener('change', () => {
 }, {
   passive: true
 });
-
-/**
- * Query a node list with a selector.
- * @param {String} selector Query Selector
- * @param {NodeListOf<Element>} elements Elements to query
- * @returns {NodeListOf<Element>} Matched results
- */
-const querySelectorFrom = (selector, elements) => {
-  return [].filter.call(elements, element => element.matches(selector));
-};
 
 getCanvas().addEventListener(getInputEventNames().start, drawStart, {
   passive: true
