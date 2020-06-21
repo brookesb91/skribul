@@ -1,9 +1,12 @@
 {
   "name": "Skribul",
   "short_name": "Skribul",
+  "description": "Share your doodles",
+  "categories": ["entertainment", "personalization", "social"],
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone",
+  "lang": "en-US",
   "scope": "./",
   "start_url": "./",
   "icons": [{

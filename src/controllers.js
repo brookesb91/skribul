@@ -1,4 +1,8 @@
 const Sharp = require('sharp');
+const {
+  SitemapStream,
+  streamToPromise
+} = require('sitemap');
 const models = require('./models');
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 const ENV = process.env.NODE_ENV;
@@ -128,10 +132,32 @@ const browse = async (req, res) => {
   });
 };
 
+const sitemap = async (req, res) => {
+  const items = await models.Save.find({});
+
+  const links = Array.from(items, item => ({
+    url: `/${item.slug}/`,
+    changefreq: 'always'
+  }));
+
+  const stream = new SitemapStream({
+    hostname: BASE_URL
+  });
+
+  links.forEach(link => stream.write(link));
+  stream.end();
+
+  const data = await streamToPromise(stream);
+
+  res.header('Content-Type', 'application/xml');
+  res.send(data);
+};
+
 module.exports = {
   index,
   view,
   save,
   preview,
-  browse
+  browse,
+  sitemap
 };

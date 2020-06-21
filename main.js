@@ -39,6 +39,8 @@ app.get('/:slug', controllers.view);
 app.get('/preview/:slug', controllers.preview);
 app.post('/api/saves', controllers.save);
 
+app.get('/sitemap.xml', controllers.sitemap);
+
 const server = new http.Server(app);
 
 server.listen(port, host, () => {
