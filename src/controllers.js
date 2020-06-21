@@ -1,3 +1,4 @@
+const Sharp = require('sharp');
 const models = require('./models');
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 const ENV = process.env.NODE_ENV;
@@ -56,7 +57,8 @@ const preview = async (req, res) => {
     return res.status(404);
   }
 
-  const img = Buffer.from(save.image.toString().replace(/^data:image\/png;base64,/, ''), 'base64');
+  const buffer = save.image.toString().replace(/^data:image\/png;base64,/, '');
+  const img = await createImage(buffer).toBuffer();
 
   res.writeHead(200, {
     'Content-Type': 'image/png',
@@ -64,6 +66,27 @@ const preview = async (req, res) => {
   });
 
   res.end(img);
+};
+
+const createImage = (source) => {
+  return Sharp(Buffer.from(source, 'base64'))
+    .flatten({
+      background: {
+        r: 255,
+        g: 255,
+        b: 255
+      }
+    })
+    .resize({
+      width: 1200,
+      height: 600,
+      background: {
+        r: 255,
+        g: 255,
+        b: 255
+      },
+      fit: Sharp.fit.contain
+    }).png().trim();
 };
 
 /**

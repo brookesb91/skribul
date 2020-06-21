@@ -44,10 +44,10 @@ const isTouch = () => 'ontouchstart' in window;
 getCanvas().width = document.body.clientWidth;
 getCanvas().height = document.body.clientHeight;
 
-getContext().save();
-getContext().fillStyle = 'white';
-getContext().fillRect(0, 0, getCanvas().width, getCanvas().height);
-getContext().restore();
+// getContext().save();
+// getContext().fillStyle = 'white';
+// getContext().fillRect(0, 0, getCanvas().width, getCanvas().height);
+// getContext().restore();
 
 const TOUCH_EVENTS = {
   move: 'touchmove',
