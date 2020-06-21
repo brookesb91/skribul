@@ -3,7 +3,7 @@ extends editor
 block append meta
   - var preview = BASE_URL + '/preview/' + slug;
   - var url = BASE_URL + '/' + slug;
-  meta(property="og:image:url" content=preview)
+  meta(property="og:image" content=preview)
   meta(property="og:url" content=url)
   meta(property="twitter:image" content=preview)
   meta(property="twitter:card" content=preview)
