@@ -85,8 +85,9 @@ const createImage = (source) => {
         g: 255,
         b: 255
       },
-      fit: Sharp.fit.contain
-    }).png().trim();
+      fit: Sharp.fit.contain,
+      withoutEnlargement: true
+    }).png();
 };
 
 /**
