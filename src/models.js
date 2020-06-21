@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const randomstring = require('randomstring');
 
+const dbUri = process.env.MONGODB_URI || 'mongodb://localhost/skribul';
+
 const saveSchema = new mongoose.Schema({
   image: Buffer,
   slug: {
@@ -31,6 +33,15 @@ saveSchema.methods.toJSON = function () {
 
 const Save = mongoose.model('Save', saveSchema);
 
+const connectDB = async () => {
+  await mongoose.connect(dbUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  });
+};
+
 module.exports = {
-  Save
+  Save,
+  connectDB
 };

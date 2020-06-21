@@ -105,10 +105,12 @@ const save = async (req, res) => {
     image
   } = req.body;
 
+  const buffer = Buffer.from(Buffer.from(image, 'binary').toString('base64'), 'base64');
+
   const {
     slug
   } = await models.Save.create({
-    image: Buffer.from(Buffer.from(image, 'binary').toString('base64'), 'base64')
+    image: buffer
   });
 
   return res.json({
@@ -137,7 +139,10 @@ const sitemap = async (req, res) => {
 
   const links = Array.from(items, item => ({
     url: `/${item.slug}/`,
-    changefreq: 'always'
+    changefreq: 'always',
+    img: {
+      url: `/preview/${item.slug}`
+    }
   }));
 
   const stream = new SitemapStream({

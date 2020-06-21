@@ -1,19 +1,18 @@
 {
   "name": "skribul",
   "version": "1.0.0",
-  "description": "",
+  "description": "Share doodles across social platforms",
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ben Brookes",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "express-sitemap": "^1.8.0",
     "mongoose": "^5.9.19",
     "node-cron": "^2.0.3",
     "pug": "^3.0.0",
