@@ -1,5 +1,5 @@
 .items {
-  padding: 12px 0;
+  padding: 12px 6px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -15,7 +15,7 @@
   }
 
   .items {
-    max-width: 1200px;
+    max-width: 1260px;
   }
 }
 
@@ -30,6 +30,7 @@ img {
 }
 
 .items .item .preview {
-  height: 250px;
-  width: 300px;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
 }

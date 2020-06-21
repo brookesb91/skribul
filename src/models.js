@@ -17,12 +17,15 @@ const saveSchema = new mongoose.Schema({
       return date;
     }
   }
+}, {
+  timestamps: true
 });
 
 saveSchema.methods.toJSON = function () {
   return {
     image: this.image.toString(),
-    slug: this.slug
+    slug: this.slug,
+    createdAt: this.createdAt
   };
 };
 

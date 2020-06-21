@@ -6,7 +6,7 @@ block append styles
 block append body
   .items
     each item in items
-      a.item.shadow(href=item.slug)
+      a.item.shadow-sm(href=item.slug)
         img.preview(src='/preview/' + item.slug)
 
 block append ribbons
