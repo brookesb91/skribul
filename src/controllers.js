@@ -47,6 +47,11 @@ const view = async (req, res) => {
  * @param {Express.Response} res The response.
  */
 const preview = async (req, res) => {
+  const {
+    width,
+    height
+  } = req.query;
+
   const slug = req.params.slug;
 
   const save = await models.Save.findOne({
@@ -58,7 +63,7 @@ const preview = async (req, res) => {
   }
 
   const buffer = save.image.toString().replace(/^data:image\/png;base64,/, '');
-  const img = await createImage(buffer).toBuffer();
+  const img = await createImage(buffer, width, height).toBuffer();
 
   res.writeHead(200, {
     'Content-Type': 'image/png',
@@ -68,23 +73,19 @@ const preview = async (req, res) => {
   res.end(img);
 };
 
-const createImage = (source) => {
+const createImage = (source, width = 1200, height = 600, background = {
+  r: 255,
+  g: 255,
+  b: 255
+}) => {
   return Sharp(Buffer.from(source, 'base64'))
     .flatten({
-      background: {
-        r: 255,
-        g: 255,
-        b: 255
-      }
+      background
     })
     .resize({
-      width: 1200,
-      height: 600,
-      background: {
-        r: 255,
-        g: 255,
-        b: 255
-      },
+      width,
+      height,
+      background,
       fit: Sharp.fit.contain,
       withoutEnlargement: true
     }).png();
