@@ -2,12 +2,7 @@ extends _layout
 
 block append meta
   link(rel="canonical" href=BASE_URL)
-
-  - var imageUrl = BASE_URL + '/icons/icon-512x512.png';
-  meta(property="og:image" content=imageUrl)
   meta(property="og:url" content=BASE_URL)
-  meta(property="twitter:image" content=imageUrl)
-  meta(property="twitter:card" content=imageUrl)
 
 block append styles
   link(rel="stylesheet" href="styles/skribul-editor.css")
