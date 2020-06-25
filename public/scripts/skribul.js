@@ -41,8 +41,10 @@ const toggleOverlay = (toggle) => {
  */
 const isTouch = () => 'ontouchstart' in window;
 
-getCanvas().width = document.body.clientWidth;
-getCanvas().height = document.body.clientHeight;
+const setCanvasSize = () => {
+  getCanvas().width = document.body.clientWidth;
+  getCanvas().height = document.body.clientHeight;
+};
 
 const TOUCH_EVENTS = {
   move: 'touchmove',
@@ -183,6 +185,10 @@ picker.addEventListener('change', () => {
 }, {
   passive: true
 });
+
+setCanvasSize();
+
+window.addEventListener('resize', setCanvasSize);
 
 getCanvas().addEventListener(getInputEventNames().start, drawStart, {
   passive: true
