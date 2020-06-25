@@ -161,6 +161,7 @@ const share = async (link) => {
   if ('share' in navigator) {
     await navigator.share({
       title: 'Skribul',
+      text: 'Check out my doodle',
       url: link
     });
   } else if ('clipboard' in navigator) {
