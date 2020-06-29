@@ -1,6 +1,6 @@
 # Skribul
 
-![Skribul](logo.png)
+![Skribul](/logo.png)
 
 ## Share Your Doodles
 
