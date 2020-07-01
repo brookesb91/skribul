@@ -46,6 +46,7 @@ app.post('/api/saves', controllers.save);
 
 const server = new http.Server(app);
 
+/* eslint-disable no-console */
 server.listen(port, host, async () => {
 
   await connectDB();
