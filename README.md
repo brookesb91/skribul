@@ -4,6 +4,7 @@
 
 # Skribul
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c184b4d26dd8408fa1de033a1a96c667)](https://app.codacy.com/manual/brookesb91/skribul?utm_source=github.com&utm_medium=referral&utm_content=brookesb91/skribul&utm_campaign=Badge_Grade_Dashboard)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
