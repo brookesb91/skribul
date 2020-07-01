@@ -1,6 +1,5 @@
 const CACHE_VERSION = 'v1.0.0';
 const CACHE_NAME = `${CACHE_VERSION}:sw-cache`;
-const REQUEST_LIMIT = 10;
 
 const HTML_ASSETS = ['/', '/offline'];
 
@@ -13,29 +12,24 @@ const IMAGE_ASSETS = [];
 function onInstall(event) {
   log('Installing');
   event.waitUntil(
-    caches
-    .open(CACHE_NAME)
-    .then((cache) =>
+    caches.open(CACHE_NAME).then((cache) =>
       cache.addAll([
         ...HTML_ASSETS,
         ...JS_ASSETS,
         ...CSS_ASSETS,
         ...IMAGE_ASSETS,
       ])
-    )
-    .then(() => log('Install complete'))
+    ).then(() => log('Install complete'))
   );
 }
 
-function onActivate(event) {
+function onActivate() {
   log('Activating');
   caches
     .keys()
     .then((cacheNames) =>
       Promise.all(
-        cacheNames
-        .filter((name) => name.indexOf(CACHE_NAME) !== 0)
-        .map((name) => caches.delete(name))
+        cacheNames.filter((name) => name.indexOf(CACHE_NAME) !== 0).map((name) => caches.delete(name))
       )
     );
 }
@@ -43,7 +37,7 @@ function onActivate(event) {
 function onFetch(event) {
   log('Fetching');
 
-  if (event.request.url.match('^.*(\/browse\/).*$')) {
+  if (event.request.url.match('^.*(/browse/).*$')) {
     return false;
   }
 
@@ -55,7 +49,7 @@ function onFetch(event) {
 
       return fetch(event.request)
         .then(handleNetworkResponse)
-        .catch((_) => caches.match('/offline'));
+        .catch(() => caches.match('/offline'));
     })
   );
 
@@ -76,6 +70,7 @@ function isSecure(url) {
   return /^https?:$/i.test(new URL(url).protocol);
 }
 
+/* eslint-disable no-console */
 function log(message) {
   console.log(`[service-worker] ${message}`);
 }

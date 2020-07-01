@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 /**
  * Gets the canvas element.
  * @returns {HTMLCanvasElement}
@@ -70,14 +72,6 @@ const getInputEventNames = () => (isTouch() ? TOUCH_EVENTS : MOUSE_EVENTS);
  */
 const setStyle = (color) => (getContext().fillStyle = color);
 
-const clearCanvas = () => {
-  const {
-    width,
-    height
-  } = getCanvas();
-  getContext().clearRect(0, 0, width, height);
-};
-
 const drawStart = (e) => getCanvas().addEventListener(getInputEventNames().move, startPath, {
   passive: true
 });
@@ -114,6 +108,7 @@ const getMousePos = (e) => {
     y: e.clientY - top,
   };
 };
+
 
 const render = (dataURI) => {
   const image = new Image();
@@ -166,7 +161,7 @@ const share = async (link) => {
     });
   } else if ('clipboard' in navigator) {
     await navigator.clipboard.writeText(link);
-    alert(`Link copied to clipboard`);
+    alert('Link copied to clipboard');
   } else {
     alert(`
       Automatic sharing is currently unavailable in your browser.

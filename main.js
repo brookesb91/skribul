@@ -36,7 +36,7 @@ if (isProduction) {
 }
 
 app.get('/sitemap.xml', controllers.sitemap);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'web', 'public')));
 
 app.get('/', controllers.index);
 app.get('/browse', controllers.browse);
