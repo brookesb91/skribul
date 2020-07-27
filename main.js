@@ -3,17 +3,12 @@ const path = require('path');
 const http = require('http');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const cron = require('node-cron');
+// const cron = require('node-cron');
 
-const {
-  Save,
-  connectDB
-} = require('./src/models');
+const { connectDB } = require('./src/models');
 
 const controllers = require('./src/controllers');
-const {
-  forceSsl
-} = require('./src/middleware');
+const { forceSsl } = require('./src/middleware');
 
 const env = process.env.NODE_ENV || 'development';
 const protocol = process.env.PROTOCOL || 'http';
@@ -27,9 +22,11 @@ app.set('view engine', 'pug');
 
 app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
 if (isProduction) {
   app.use(forceSsl);
@@ -48,18 +45,17 @@ const server = new http.Server(app);
 
 /* eslint-disable no-console */
 server.listen(port, host, async () => {
-
   await connectDB();
 
   console.log(`Server running on ${protocol}://${host}:${port}`);
 
-  const job = cron.schedule('* * * * *', async () => {
-    await Save.deleteMany({
-      expiresAt: {
-        $lte: new Date()
-      }
-    });
-  });
+  // const job = cron.schedule('* * * * *', async () => {
+  //   await Save.deleteMany({
+  //     expiresAt: {
+  //       $lte: new Date()
+  //     }
+  //   });
+  // });
 
   process.on('SIGTERM', () => {
     console.log('SIGTERM signal received.');
@@ -68,9 +64,9 @@ server.listen(port, host, async () => {
     server.close(() => {
       console.log('Http server closed.');
 
-      console.log('Stopping running jobs...');
-      job.stop();
-      console.log('Stopped running jobs.');
+      // console.log("Stopping running jobs...");
+      // job.stop();
+      // console.log("Stopped running jobs.");
 
       console.log('Closing MongoDB connection...');
       mongoose.connection.close(false, () => {
