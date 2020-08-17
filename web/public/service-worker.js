@@ -5,21 +5,28 @@ const HTML_ASSETS = ['/', '/offline'];
 
 const JS_ASSETS = ['/scripts/skribul.js'];
 
-const CSS_ASSETS = ['/styles/skribul.css', '/styles/skribul-editor.css', '/styles/skribul-browse.css'];
+const CSS_ASSETS = [
+  '/styles/skribul.css',
+  '/styles/skribul-editor.css',
+  '/styles/skribul-browse.css',
+];
 
 const IMAGE_ASSETS = [];
 
 function onInstall(event) {
   log('Installing');
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) =>
-      cache.addAll([
-        ...HTML_ASSETS,
-        ...JS_ASSETS,
-        ...CSS_ASSETS,
-        ...IMAGE_ASSETS,
-      ])
-    ).then(() => log('Install complete'))
+    caches
+      .open(CACHE_NAME)
+      .then((cache) =>
+        cache.addAll([
+          ...HTML_ASSETS,
+          ...JS_ASSETS,
+          ...CSS_ASSETS,
+          ...IMAGE_ASSETS,
+        ])
+      )
+      .then(() => log('Install complete'))
   );
 }
 
@@ -29,7 +36,9 @@ function onActivate() {
     .keys()
     .then((cacheNames) =>
       Promise.all(
-        cacheNames.filter((name) => name.indexOf(CACHE_NAME) !== 0).map((name) => caches.delete(name))
+        cacheNames
+          .filter((name) => name.indexOf(CACHE_NAME) !== 0)
+          .map((name) => caches.delete(name))
       )
     );
 }
@@ -37,8 +46,8 @@ function onActivate() {
 function onFetch(event) {
   log('Fetching');
 
-  if (event.request.url.match('^.*(/browse/).*$')) {
-    return false;
+  if (event.request.url.match('(browse)$')) {
+    return;
   }
 
   event.respondWith(

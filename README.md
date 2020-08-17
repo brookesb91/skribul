@@ -21,8 +21,6 @@ Create and share your drawings across social media and chat platforms.
 
 Optimised meta information allows full images to be rendered in apps that display a link preview.
 
-Saved images are cleaned up with cron and exist in the database for 1 hour.
-
 ## Prerequisites
 
 - NodeJS
