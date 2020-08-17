@@ -3,10 +3,8 @@ const path = require('path');
 const http = require('http');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-// const cron = require('node-cron');
 
 const { connectDB } = require('./src/models');
-
 const controllers = require('./src/controllers');
 const { forceSsl } = require('./src/middleware');
 
@@ -49,25 +47,12 @@ server.listen(port, host, async () => {
 
   console.log(`Server running on ${protocol}://${host}:${port}`);
 
-  // const job = cron.schedule('* * * * *', async () => {
-  //   await Save.deleteMany({
-  //     expiresAt: {
-  //       $lte: new Date()
-  //     }
-  //   });
-  // });
-
   process.on('SIGTERM', () => {
     console.log('SIGTERM signal received.');
     console.log('Closing http server...');
 
     server.close(() => {
       console.log('Http server closed.');
-
-      // console.log("Stopping running jobs...");
-      // job.stop();
-      // console.log("Stopped running jobs.");
-
       console.log('Closing MongoDB connection...');
       mongoose.connection.close(false, () => {
         console.log('MongoDB connection closed.');
