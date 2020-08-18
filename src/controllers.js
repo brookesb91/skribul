@@ -53,8 +53,12 @@ const view = async (req, res) => {
 const preview = async (req, res) => {
   const {
     width,
-    height
-  } = req.query;
+    height,
+  } = {
+    width: 1200,
+    height: 600,
+    ...req.query
+  };
 
   const slug = req.params.slug;
 
@@ -77,7 +81,7 @@ const preview = async (req, res) => {
   res.end(img);
 };
 
-const createImage = (source, width = 1200, height = 600, background = {
+const createImage = (source, width, height, background = {
   r: 255,
   g: 255,
   b: 255
