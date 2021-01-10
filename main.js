@@ -4,9 +4,13 @@ const http = require('http');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-const { connectDB } = require('./src/models');
+const {
+  connectDB
+} = require('./src/models');
 const controllers = require('./src/controllers');
-const { forceSsl } = require('./src/middleware');
+const {
+  forceSsl
+} = require('./src/middleware');
 
 const env = process.env.NODE_ENV || 'development';
 const protocol = process.env.PROTOCOL || 'http';
