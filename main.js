@@ -34,6 +34,8 @@ if (isProduction) {
   app.use(forceSsl);
 }
 
+app.use(express.static(path.join(__dirname, 'web', 'public')));
+
 app.get('/sitemap.xml', controllers.sitemap);
 
 app.get('/', controllers.index);
@@ -41,8 +43,6 @@ app.get('/browse', controllers.browse);
 app.get('/:slug', controllers.view);
 app.get('/preview/:slug', controllers.preview);
 app.post('/api/saves', controllers.save);
-
-app.use(express.static(path.join(__dirname, 'web', 'public')));
 
 const server = new http.Server(app);
 
