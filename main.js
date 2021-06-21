@@ -34,7 +34,7 @@ if (isProduction) {
   app.use(forceSsl);
 }
 
-app.use(express.static(path.join(__dirname, 'web', 'public')));
+app.use(express.static(path.join(__dirname, 'web', 'public'), {redirect: false}));
 
 app.get('/sitemap.xml', controllers.sitemap);
 
