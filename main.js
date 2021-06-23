@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 
 const { connectDB } = require('./src/models');
 const controllers = require('./src/controllers');

@@ -1,28 +1,91 @@
-/* eslint-disable no-unused-vars */
-
 /**
- * Gets the canvas element.
- * @returns {HTMLCanvasElement}
+ * @type {HTMLCanvasElement} Canvas element.
  */
-const getCanvas = () => document.getElementById('canvas');
-
+const canvas = document.querySelector('#canvas');
 /**
- * Gets the current canvas rendering context.
- * @returns {CanvasRenderingContext2D}
+ * @type {CanvasRenderingContext2D} Rendering context.
  */
-const getContext = () => getCanvas().getContext('2d');
-
-/**
- * Gets the current canvas DOMRect.
- * @returns {DOMRect}
- */
-const getRect = () => getCanvas().getBoundingClientRect();
-
+const ctx = canvas.getContext('2d');
 /**
  * Get the loading overlay element.
  * @returns {HTMLElement}
  */
-const getOverlay = () => document.getElementById('overlay');
+const overlay = document.getElementById('overlay');
+
+const SCREEN_WIDTH = window.innerWidth;
+const SCREEN_HEIGHT = window.innerHeight;
+const BRUSH_SIZE = 2;
+const BRUSH_PRESSURE = 1;
+const COLOR = [0, 0, 0];
+
+canvas.height = SCREEN_HEIGHT;
+canvas.width = SCREEN_WIDTH;
+
+class Brush {
+  /**
+   *
+   * @param {CanvasRenderingContext2D} context Rendering context.
+   */
+  constructor(context) {
+    this.context = context;
+    this.mouseX = SCREEN_WIDTH / 2;
+    this.mouseY = SCREEN_HEIGHT / 2;
+
+    this.painters = [];
+
+    this.painters = new Array(50).fill().map(() => ({
+      dx: SCREEN_WIDTH / 2,
+      dy: SCREEN_HEIGHT / 2,
+      ax: 0,
+      ay: 0,
+      div: 0.1,
+      ease: Math.random() * 0.1 + 0.5,
+    }));
+
+    this.interval = setInterval(this.update.bind(this), 1000 / 60);
+  }
+
+  update() {
+    this.context.lineWidth = BRUSH_SIZE;
+    this.context.strokeStyle = `rgba(${COLOR[0]}, ${COLOR[1]}, ${COLOR[2]}, ${
+      0.05 * BRUSH_PRESSURE
+    })`;
+
+    for (let i = 0; i < this.painters.length; i++) {
+      this.context.beginPath();
+      this.context.moveTo(this.painters[i].dx, this.painters[i].dy);
+
+      this.painters[i].dx -= this.painters[i].ax =
+        (this.painters[i].ax +
+          (this.painters[i].dx - this.mouseX) * this.painters[i].div) *
+        this.painters[i].ease;
+
+      this.painters[i].dy -= this.painters[i].ay =
+        (this.painters[i].ay +
+          (this.painters[i].dy - this.mouseY) * this.painters[i].div) *
+        this.painters[i].ease;
+      this.context.lineTo(this.painters[i].dx, this.painters[i].dy);
+      this.context.stroke();
+    }
+  }
+
+  strokeStart(mouseX, mouseY) {
+    this.mouseX = mouseX;
+    this.mouseY = mouseY;
+
+    for (let i = 0; i < this.painters.length; i++) {
+      this.painters[i].dx = mouseX;
+      this.painters[i].dy = mouseY;
+    }
+  }
+
+  stroke(mouseX, mouseY) {
+    this.mouseX = mouseX;
+    this.mouseY = mouseY;
+  }
+
+  strokeEnd() {}
+}
 
 /**
  * Toggles the loading overlay visibility.
@@ -30,96 +93,19 @@ const getOverlay = () => document.getElementById('overlay');
  * @returns {void}
  */
 const toggleOverlay = (toggle) => {
-  if (toggle) {
-    getOverlay().classList.add('visible');
-  } else {
-    getOverlay().classList.remove('visible');
-  }
+  overlay.classList.toggle('visible', toggle);
 };
 
-/**
- * Determines if touch is supported on the current platform.
- * @returns {Boolean}
- */
-const isTouch = () => 'ontouchstart' in window;
-
-const setCanvasSize = () => {
-  getCanvas().width = document.body.clientWidth;
-  getCanvas().height = document.body.clientHeight;
-};
-
-const TOUCH_EVENTS = {
-  move: 'touchmove',
-  start: 'touchstart',
-  end: 'touchend',
-};
-
-const MOUSE_EVENTS = {
-  move: 'mousemove',
-  start: 'mousedown',
-  end: 'mouseup',
-};
-
-/**
- * @returns {typeof TOUCH_EVENTS | typeof MOUSE_EVENTS}
- */
-const getInputEventNames = () => (isTouch() ? TOUCH_EVENTS : MOUSE_EVENTS);
-
-/**
- * Set the canvas context fill style.
- * @param {String} color Color to set
- * @returns {void}
- */
-const setStyle = (color) => (getContext().fillStyle = color);
-
-const drawStart = (e) => getCanvas().addEventListener(getInputEventNames().move, startPath, {
-  passive: true
-});
-
-const drawEnd = (e) => getCanvas().removeEventListener(getInputEventNames().move, startPath, {
-  passive: true
-});
-
-const startPath = (e) => {
-  const pos = getInputPos(e);
-  getContext().fillRect(pos.x - 1, pos.y - 1, 3, 3);
-};
-
-const getInputPos = (e) => (isTouch() ? getTouchPos(e) : getMousePos(e));
-
-const getTouchPos = (e) => {
-  const {
-    left,
-    top
-  } = getRect();
-  return {
-    x: e.touches[0].clientX - left,
-    y: e.touches[0].clientY - top,
-  };
-};
-
-const getMousePos = (e) => {
-  const {
-    left,
-    top
-  } = getRect();
-  return {
-    x: e.clientX - left,
-    y: e.clientY - top,
-  };
-};
-
-
-const render = (dataURI) => {
+window.render = (dataURI) => {
   const image = new Image();
-  image.onload = () => getContext().drawImage(image, 0, 0);
+  image.onload = () => ctx.drawImage(image, 0, 0);
   image.src = dataURI;
 };
 
-const save = async () => {
+window.save = async () => {
   toggleOverlay(true);
 
-  const image = getCanvas().toDataURL('image/png');
+  const image = canvas.toDataURL('image/png');
   const payload = {
     image,
   };
@@ -157,7 +143,7 @@ const share = async (link) => {
     await navigator.share({
       title: 'Skribul',
       text: 'Check out my doodle',
-      url: link
+      url: link,
     });
   } else if ('clipboard' in navigator) {
     await navigator.clipboard.writeText(link);
@@ -170,26 +156,49 @@ const share = async (link) => {
   }
 };
 
-/**
- * @type {HTMLInputElement}
- */
-const picker = document.querySelector('#color-picker');
+const brush = new Brush(ctx);
 
-picker.addEventListener('change', () => {
-  const color = picker.value;
-  setStyle(color);
-}, {
-  passive: true
-});
+function onCanvasMouseDown(event) {
+  brush.strokeStart(event.clientX, event.clientY);
+  window.addEventListener('mousemove', onCanvasMouseMove, false);
+  window.addEventListener('mouseup', onCanvasMouseUp, false);
+}
 
-setCanvasSize();
+function onCanvasMouseUp() {
+  brush.strokeEnd();
+  window.removeEventListener('mousemove', onCanvasMouseMove, false);
+  window.removeEventListener('mouseup', onCanvasMouseUp, false);
+}
 
-window.addEventListener('resize', setCanvasSize);
+function onCanvasMouseMove(event) {
+  brush.stroke(event.clientX, event.clientY);
+}
 
-getCanvas().addEventListener(getInputEventNames().start, drawStart, {
-  passive: true
-});
+function onCanvasTouchStart(event) {
+  if (event.touches.length == 1) {
+    event.preventDefault();
 
-getCanvas().addEventListener(getInputEventNames().end, drawEnd, {
-  passive: true
-});
+    brush.strokeStart(event.touches[0].pageX, event.touches[0].pageY);
+
+    window.addEventListener('touchmove', onCanvasTouchMove, false);
+    window.addEventListener('touchend', onCanvasTouchEnd, false);
+  }
+}
+
+function onCanvasTouchMove(event) {
+  if (event.touches.length == 1) {
+    brush.stroke(event.touches[0].pageX, event.touches[0].pageY);
+  }
+}
+
+function onCanvasTouchEnd(event) {
+  if (event.touches.length == 0) {
+    brush.strokeEnd();
+
+    window.removeEventListener('touchmove', onCanvasTouchMove, false);
+    window.removeEventListener('touchend', onCanvasTouchEnd, false);
+  }
+}
+
+canvas.addEventListener('mousedown', onCanvasMouseDown, false);
+canvas.addEventListener('touchstart', onCanvasTouchStart, false);

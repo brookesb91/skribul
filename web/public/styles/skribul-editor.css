@@ -70,7 +70,7 @@ button,
   margin: 0rem 0.5rem;
   transition: transform 0.2s;
   padding: 0.25rem 1.25rem;
-  background: #ffffff;
+  background: #fff;
 }
 
 
@@ -94,6 +94,6 @@ button,
 
 .overlay span {
   display: block;
-  color: white;
+  color: #fff;
   font-size: 2rem;
 }
