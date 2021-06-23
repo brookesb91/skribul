@@ -11,7 +11,16 @@ block append body
   canvas(id="canvas")
 
   .picker-container
-    label(for="color-picker" style="position: absolute; bottom: -99999px") Color
+    .color.shadow
+    .sliders.shadow
+      .slider
+        input.red(type="range", max="255", value="0")
+      .slider
+        input.green(type="range", max="255" value="0")
+      .slider
+        input.blue(type="range", max="255" value="0")
+
+    //- label(for="color-picker" style="position: absolute; bottom: -99999px") Color
     //- input(type="color" class="shadow" name="color" id="color-picker")
 
   .menu

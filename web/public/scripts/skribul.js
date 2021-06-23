@@ -12,12 +12,20 @@ const ctx = canvas.getContext('2d');
  */
 const overlay = document.getElementById('overlay');
 
+const r = document.querySelector('input.red');
+const g = document.querySelector('input.green');
+const b = document.querySelector('input.blue');
+
 const SCREEN_WIDTH = document.body.clientWidth;
 const SCREEN_HEIGHT = document.body.clientHeight;
 const BRUSH_SIZE = 2;
 const PAINTERS = 50;
 const BRUSH_PRESSURE = 1;
 const COLOR = [0, 0, 0];
+
+// r.addEventListener('change', () => (COLOR[0] = r.value));
+// g.addEventListener('change', () => (COLOR[1] = g.value));
+// b.addEventListener('change', () => (COLOR[2] = b.value));
 
 class Brush {
   /**
@@ -158,14 +166,14 @@ const brush = new Brush(ctx);
 
 function onCanvasMouseDown(event) {
   brush.strokeStart(event.clientX, event.clientY);
-  window.addEventListener('mousemove', onCanvasMouseMove, false);
-  window.addEventListener('mouseup', onCanvasMouseUp, false);
+  canvas.addEventListener('mousemove', onCanvasMouseMove, false);
+  canvas.addEventListener('mouseup', onCanvasMouseUp, false);
 }
 
 function onCanvasMouseUp() {
   brush.strokeEnd();
-  window.removeEventListener('mousemove', onCanvasMouseMove, false);
-  window.removeEventListener('mouseup', onCanvasMouseUp, false);
+  canvas.removeEventListener('mousemove', onCanvasMouseMove, false);
+  canvas.removeEventListener('mouseup', onCanvasMouseUp, false);
 }
 
 function onCanvasMouseMove(event) {
@@ -178,8 +186,8 @@ function onCanvasTouchStart(event) {
 
     brush.strokeStart(event.touches[0].pageX, event.touches[0].pageY);
 
-    window.addEventListener('touchmove', onCanvasTouchMove, false);
-    window.addEventListener('touchend', onCanvasTouchEnd, false);
+    canvas.addEventListener('touchmove', onCanvasTouchMove, false);
+    canvas.addEventListener('touchend', onCanvasTouchEnd, false);
   }
 }
 
@@ -193,8 +201,8 @@ function onCanvasTouchEnd(event) {
   if (event.touches.length == 0) {
     brush.strokeEnd();
 
-    window.removeEventListener('touchmove', onCanvasTouchMove, false);
-    window.removeEventListener('touchend', onCanvasTouchEnd, false);
+    canvas.removeEventListener('touchmove', onCanvasTouchMove, false);
+    canvas.removeEventListener('touchend', onCanvasTouchEnd, false);
   }
 }
 
@@ -208,6 +216,45 @@ function onResize() {
   initCanvas();
   window.render(image);
 }
+
+function onColorSliderChange() {
+  COLOR[0] = r.value;
+  COLOR[1] = g.value;
+  COLOR[2] = b.value;
+
+  document.querySelector(
+    '.color'
+  ).style.backgroundColor = `rgb(${COLOR[0]}, ${COLOR[1]}, ${COLOR[2]})`;
+
+  r.style.background = `linear-gradient(to right, rgb(${COLOR[0]}, ${COLOR[1]}, ${COLOR[2]}), rgb(255, ${COLOR[1]}, ${COLOR[2]}))`;
+  g.style.background = `linear-gradient(to right, rgb(${COLOR[0]}, ${COLOR[1]}, ${COLOR[2]}), rgb(${COLOR[0]}, 255, ${COLOR[2]}))`;
+  b.style.background = `linear-gradient(to right, rgb(${COLOR[0]}, ${COLOR[1]}, ${COLOR[2]}), rgb(${COLOR[0]}, ${COLOR[1]}, 255))`;
+}
+
+function onColorSliderMouseDown(event) {
+  event.target.addEventListener('mousemove', onColorSliderChange);
+}
+
+function onColorSliderMouseUp(event) {
+  event.target.removeEventListener('mousemove', onColorSliderChange);
+}
+
+function onColorSliderTouchStart(event) {
+  if (event.touches.length === 1) {
+    event.target.addEventListener('touchmove', onColorSliderChange);
+  }
+}
+
+function onColorSliderTouchEnd(event) {
+  event.target.removeEventListener('touchmove', onColorSliderChange);
+}
+
+[r, g, b].forEach((el) => {
+  el.addEventListener('mousedown', onColorSliderMouseDown);
+  el.addEventListener('touchstart', onColorSliderTouchStart);
+  el.addEventListener('touchend', onColorSliderTouchEnd);
+  el.addEventListener('mouseup', onColorSliderMouseUp);
+});
 
 canvas.addEventListener('mousedown', onCanvasMouseDown, false);
 canvas.addEventListener('touchstart', onCanvasTouchStart, false);
