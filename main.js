@@ -4,13 +4,9 @@ const http = require('http');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-const {
-  connectDB
-} = require('./src/models');
+const { connectDB } = require('./src/models');
 const controllers = require('./src/controllers');
-const {
-  forceSsl
-} = require('./src/middleware');
+const { forceSsl } = require('./src/middleware');
 
 const env = process.env.NODE_ENV || 'development';
 const protocol = process.env.PROTOCOL || 'http';
@@ -22,10 +18,10 @@ const app = express();
 
 app.set('view engine', 'pug');
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.use(
-  bodyParser.urlencoded({
+  express.urlencoded({
     extended: true,
   })
 );
@@ -34,7 +30,9 @@ if (isProduction) {
   app.use(forceSsl);
 }
 
-app.use(express.static(path.join(__dirname, 'web', 'public'), {redirect: false}));
+app.use(
+  express.static(path.join(__dirname, 'web', 'public'), { redirect: false })
+);
 
 app.get('/sitemap.xml', controllers.sitemap);
 
