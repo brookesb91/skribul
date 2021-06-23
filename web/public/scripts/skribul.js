@@ -12,14 +12,12 @@ const ctx = canvas.getContext('2d');
  */
 const overlay = document.getElementById('overlay');
 
-const SCREEN_WIDTH = window.innerWidth;
-const SCREEN_HEIGHT = window.innerHeight;
+const SCREEN_WIDTH = document.body.clientWidth;
+const SCREEN_HEIGHT = document.body.clientHeight;
 const BRUSH_SIZE = 2;
+const PAINTERS = 50;
 const BRUSH_PRESSURE = 1;
 const COLOR = [0, 0, 0];
-
-canvas.height = SCREEN_HEIGHT;
-canvas.width = SCREEN_WIDTH;
 
 class Brush {
   /**
@@ -33,7 +31,7 @@ class Brush {
 
     this.painters = [];
 
-    this.painters = new Array(50).fill().map(() => ({
+    this.painters = new Array(PAINTERS).fill().map(() => ({
       dx: SCREEN_WIDTH / 2,
       dy: SCREEN_HEIGHT / 2,
       ax: 0,
@@ -200,5 +198,20 @@ function onCanvasTouchEnd(event) {
   }
 }
 
+const initCanvas = () => {
+  canvas.height = document.body.clientHeight;
+  canvas.width = document.body.clientWidth;
+};
+
+function onResize() {
+  const image = canvas.toDataURL();
+  initCanvas();
+  window.render(image);
+}
+
 canvas.addEventListener('mousedown', onCanvasMouseDown, false);
 canvas.addEventListener('touchstart', onCanvasTouchStart, false);
+
+window.onresize = onResize;
+
+initCanvas();
