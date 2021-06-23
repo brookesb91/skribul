@@ -37,7 +37,7 @@ app.use(
 app.get('/sitemap.xml', controllers.sitemap);
 
 app.get('/', controllers.index);
-app.get('/browse', controllers.browse);
+// app.get('/browse', controllers.browse);
 app.get('/:slug', controllers.view);
 app.get('/preview/:slug', controllers.preview);
 app.post('/api/saves', controllers.save);
