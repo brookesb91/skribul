@@ -23,10 +23,6 @@ const PAINTERS = 50;
 const BRUSH_PRESSURE = 1;
 const COLOR = [0, 0, 0];
 
-// r.addEventListener('change', () => (COLOR[0] = r.value));
-// g.addEventListener('change', () => (COLOR[1] = g.value));
-// b.addEventListener('change', () => (COLOR[2] = b.value));
-
 class Brush {
   /**
    *
@@ -70,6 +66,7 @@ class Brush {
         (this.painters[i].ay +
           (this.painters[i].dy - this.mouseY) * this.painters[i].div) *
         this.painters[i].ease;
+
       this.context.lineTo(this.painters[i].dx, this.painters[i].dy);
       this.context.stroke();
     }
