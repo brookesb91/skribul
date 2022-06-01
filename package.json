@@ -16,7 +16,7 @@
     "mongoose": "^5.9.19",
     "pug": "^3.0.0",
     "randomstring": "^1.1.5",
-    "sharp": "^0.25.4",
+    "sharp": "^0.30.5",
     "sitemap": "^6.1.5"
   }
 }
